@@ -12,18 +12,33 @@ public class CarController : MonoBehaviour
     public int maxMotorTorque = 10000;
     public Rigidbody2D rB;
 
+    private void Start()
+    {
+        if (backWheel == null || frontWheel == null)
+        {
+            Debug.LogError("CarController: Wheel joints are not assigned!");
+        }
+        if (rB == null)
+        {
+            Debug.LogError("CarController: Rigidbody2D is not assigned!");
+        }
+    }
+
     private void Update()
     {
-#if UNITY_STANDALONE || UNITY_WEBPLAYER
-        //movement = -Input.GetAxisRaw("Vertical") * speed;
+#if UNITY_STANDALONE || UNITY_EDITOR
         Move(-Input.GetAxisRaw("Vertical"));
-        //rotation = -Input.GetAxisRaw("Horizontal") * rotationSpeed * Time.fixedDeltaTime;
         Rotation(-Input.GetAxisRaw("Horizontal"));
 #endif
     }
 
     private void FixedUpdate()
     {
+        if (backWheel == null || frontWheel == null || rB == null)
+        {
+            return;
+        }
+
         if (movement == 0f)
         {
             backWheel.useMotor = false;
@@ -39,8 +54,6 @@ public class CarController : MonoBehaviour
         }
 
         rB.AddTorque(rotation);
-
-
     }
 
     public void Move(float moveInput)
@@ -51,6 +64,4 @@ public class CarController : MonoBehaviour
     {
         rotation = rotationValue * rotationSpeed * Time.fixedDeltaTime;
     }
-
 }
-    

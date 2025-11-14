@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TouchControllers : MonoBehaviour {
 
@@ -9,30 +7,34 @@ public class TouchControllers : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         theCar = FindObjectOfType<CarController>();
+        if (theCar == null)
+        {
+            Debug.LogError("TouchControllers: No CarController found in scene!");
+        }
 	}
 
     public void LeftArrow()
     {
-        theCar.Move(1);
+        if (theCar != null) theCar.Move(1);
     }
     public void RightArrow()
     {
-        theCar.Move(-1);
+        if (theCar != null) theCar.Move(-1);
     }
-    public void UnpressedArraow()
+    public void UnpressedArrow()
     {
-        theCar.Move(0);
+        if (theCar != null) theCar.Move(0);
     }
     public void RotateRight()
     {
-        theCar.Rotation(-1);
+        if (theCar != null) theCar.Rotation(-1);
     }
     public void RotateLeft()
     {
-        theCar.Rotation(1);
+        if (theCar != null) theCar.Rotation(1);
     }
     public void UnRotate()
     {
-        theCar.Rotation(0);
+        if (theCar != null) theCar.Rotation(0);
     }
 }

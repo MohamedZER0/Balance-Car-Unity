@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
@@ -8,10 +6,14 @@ public class CameraController : MonoBehaviour {
 
     private void FixedUpdate()
     {
+        if (target == null)
+        {
+            Debug.LogError("CameraController: Target is not assigned!");
+            return;
+        }
+
         Vector3 newPosition = target.position;
-
         newPosition.z = -10;
-
         transform.position = newPosition;
     }
 }
